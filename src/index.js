@@ -67,29 +67,21 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = []
+  const numPizzas = pizzas.length;
+
   return (
     <main className="menu">
       <h2>Our menu</h2>
 
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
-
-      {/* <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-        alt="Pizza"
-      />
-      <Pizza
-        name="Pizza Funhgi"
-        ingredients="Tomato, Mushroom"
-        price={12}
-        photoName="pizzas/funghi.jpg"
-      /> */}
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
@@ -109,16 +101,22 @@ function Pizza(props) {
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 12;
+  const openHour = 8;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
+
   // if (hour >= openHour && hour <= closeHour) alert("We are currently open");
   // else alert("We are currently closed");
+
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}
-      <h3>We are currently open</h3>
+      {isOpen && (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order</button>
+        </div>
+      )}
     </footer>
   );
 }
